@@ -1,5 +1,12 @@
-import 'package:medication_management_module/medication_management_module.dart'; // Import the module
+import 'package:firebase_ui_auth/firebase_ui_auth.dart'; // new
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';               // new
+import 'package:google_fonts/google_fonts.dart';
+import 'package:medication_management_module/medication_management_module.dart'; // Import the module
+import 'package:provider/provider.dart'; // Import provider for state management
+import 'package:flutter/material.dart';
+
+import 'app_state.dart'; // Import the app state management
 
 // Define a library of colors for easy reference
 class AppColors {
@@ -14,9 +21,12 @@ class AppColors {
 // Main entry point for the application
 // LEARN: Flutter uses a single main() function as the application entry point
 void main() {
-  runApp(
-    const MyApp(),
-  ); // runApp inflates the widget tree and attaches it to the screen
+  WidgetsFlutterBinding.ensureInitialized(); // Ensures Flutter is initialized
+
+  runApp(ChangeNotifierProvider(
+    create: (context) => ApplicationState(),
+    builder: ((context, child) => const MyApp()),
+  )); // Wraps the app with a provider for state management
 }
 
 // Root widget that configures the overall app theme and initial route
